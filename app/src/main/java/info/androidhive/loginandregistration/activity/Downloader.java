@@ -53,7 +53,7 @@ import static info.androidhive.loginandregistration.app.AppController.TAG;
 
 
         Log.i(TAG, "Downloader:  " + CurrentLat);
-        Toast.makeText(c, "Hedadaslo", Toast.LENGTH_LONG).show();
+
     }
 
     @Override

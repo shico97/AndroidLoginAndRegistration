@@ -158,10 +158,14 @@ public class DataParser extends AsyncTask<Void,Void,Boolean> {
                     }
 
                     Log.i(TAG, "onItemClick: " + newitem);
+                    String newitem2 = newitem+" ";
                     for(int j = 0 ; j<spacecrafts.size() ; j++)
                     {
+
                         try {
-                            if (newitem.equalsIgnoreCase(spacecrafts.get(j).getString("Name"))) {
+                            Log.i(TAG, "onItemClick1: " + newitem);
+                            Log.i(TAG, "onItemClick: " +spacecrafts.get(j).getString("Name") );
+                            if (newitem.equalsIgnoreCase(spacecrafts.get(j).getString("Name")) || (newitem2.equalsIgnoreCase(spacecrafts.get(j).getString("Name")))) {
                                 Lat = spacecrafts.get(j).getDouble("Latitude");
                                 Long = spacecrafts.get(j).getDouble("Longitude");
                                 Log.i(TAG, "onItemClick: " + Lat);
