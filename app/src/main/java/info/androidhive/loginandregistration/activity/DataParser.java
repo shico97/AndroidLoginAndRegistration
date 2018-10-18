@@ -31,6 +31,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import info.androidhive.loginandregistration.R;
+
 import static info.androidhive.loginandregistration.app.AppController.TAG;
 
 /**
@@ -103,7 +105,7 @@ public class DataParser extends AsyncTask<Void,Void,Boolean> {
             for (int i = 0; i < SortedLandmarks.size(); i++) {
                 try {
                     String name = SortedLandmarks.get(i).getString("Name");
-                    name = name + " " + SortedLandmarks.get(i).getString("rating");
+                    name = name + "  " + SortedLandmarks.get(i).getString("rating");
                     DecimalFormat sh = new DecimalFormat("#.##");
                     double yomna = Double.parseDouble(sh.format(Distances.get(i)));
                     name = name + "            " + yomna + " KM";
@@ -126,25 +128,57 @@ public class DataParser extends AsyncTask<Void,Void,Boolean> {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Object object =  parent.getItemAtPosition(position);
-                    JSONObject Jsonitem = (JSONObject) object;
-                    Log.i(TAG, "onItemClick: " + Jsonitem);
-                    try {
-                        Lat = Jsonitem.getDouble("Latitude");
-                        Long = Jsonitem.getDouble("Longitude");
-                        Log.i(TAG, "onItemClick: " + Lat);
-                        Intent intent = new Intent(c, MapsActivity.class);
-                        String Lat2 = Double.toString(Lat);
-                        String Long2 = Double.toString(Long);
-                        intent.putExtra("key", Lat2);
-                        intent.putExtra("key2", Long2);
-                        c.startActivity(intent);
+                    Boolean flag = true;
+                    String item = ((TextView)view).getText().toString();
+                    char newchar;
+                    String newitem = "";
+                    int i = 0;
+                    int l = 1;
+                    //newitem = newitem + item.charAt(0);
+                    while(flag)
+                    {
+                        Log.i(TAG, "onItemClick: " + newitem);
+                        Log.i(TAG, "onItemClick: " + item);
+                        if((item.charAt(i) != ' '))
+                        {
+                            Log.i(TAG, "onItemClick:  da5al" );
+                                newchar = item.charAt(i);
+                                newitem = newitem + newchar;
+                                i++;
+                        }
+                        else
+                            if((item.charAt(i) == ' ') && (item.charAt(i+l) == ' '))
+                                flag = false;
 
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        else
+                           if((item.charAt(i) == ' ') && (item.charAt(i+l) != ' ')) {
+                               newitem = newitem + " ";
+                               i++;
+                           }
                     }
 
+                    Log.i(TAG, "onItemClick: " + newitem);
+                    for(int j = 0 ; j<spacecrafts.size() ; j++)
+                    {
+                        try {
+                            if (newitem.equalsIgnoreCase(spacecrafts.get(j).getString("Name"))) {
+                                Lat = spacecrafts.get(j).getDouble("Latitude");
+                                Long = spacecrafts.get(j).getDouble("Longitude");
+                                Log.i(TAG, "onItemClick: " + Lat);
+                                Intent intent = new Intent(c, MapsActivity.class);
+                                String Lat2 = Double.toString(Lat);
+                                String Long2 = Double.toString(Long);
+                                intent.putExtra("key", Lat2);
+                                intent.putExtra("key2", Long2);
+                                c.startActivity(intent);
+                                break;
+                            }
+
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             });
         }

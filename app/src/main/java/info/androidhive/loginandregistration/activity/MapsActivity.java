@@ -82,6 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng sydney = new LatLng(Latitude, Longitude);
             mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            moveCamera(new LatLng(Latitude,Longitude),Default_Zoom);
         }
 
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
@@ -111,7 +112,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if(task.isSuccessful())
                         {
                             Location currentLocation = (Location) task.getResult();
-                            moveCamera(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),Default_Zoom);
+                            if (Lat == null && Long== null) {
+                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), Default_Zoom);
+                            }
 
                         }
                     }

@@ -62,6 +62,6 @@
         android:layout_marginRight="17dp"
         android:layout_toLeftOf="@+id/button2"
         android:layout_toStartOf="@+id/button2"
-        android:text="Show Places" />
+        android:text="Ratings" />
 
 </RelativeLayout>

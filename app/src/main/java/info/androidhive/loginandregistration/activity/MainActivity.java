@@ -205,7 +205,7 @@ public class MainActivity extends Activity {
                     for (int i = 0; i < SortedLandmarksRatings.size(); i++) {
                         try {
                             String s = SortedLandmarksRatings.get(i).getString("Name");
-                            s = s + " " + SortedLandmarksRatings.get(i).getString("rating");
+                            s = s + "  " + SortedLandmarksRatings.get(i).getString("rating");
                             yasser.add(s);
                         }
                         catch (JSONException e)
